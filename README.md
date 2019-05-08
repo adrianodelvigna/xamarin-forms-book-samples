@@ -1,5 +1,6 @@
 # xamarin-forms-book-samples
-Sample code for *Creating Mobile Apps with Xamarin.Forms*. The book can be downloaded from http://developer.xamarin.com/guides/cross-platform/xamarin-forms/creating-mobile-apps-xamarin-forms/.
+
+Sample code for the book *Creating Mobile Apps with Xamarin.Forms*. The book can be downloaded from https://docs.microsoft.com/en-us/xamarin/xamarin-forms/creating-mobile-apps-xamarin-forms/.
 
 ## Notes
 
@@ -7,19 +8,39 @@ Sample code for *Creating Mobile Apps with Xamarin.Forms*. The book can be downl
 
 The Xamarin.Forms NuGet packages are not part of these projects. They must be downloaded for each project.
 
-To avoid hassles, download the NuGet packages for the solutions in the **Libraries** directory first. You'll want to load each library solutions into Visual Studio, right-click the solution name in the **Solution List** and select **Manage NuGet Packages for Solution**. A notice should appear at the top of the **Manage NuGet Packages** dialog that says "Some NuGet packages are missing from this solution. Click to restore from you online package sources." Click the **Restore** button and then the **Close** button. Build the library.
+To avoid hassles, download the NuGet packages for the solutions in the **Libraries** directory first. You'll want to load each library solutions into Visual Studio, right-click the solution name in the **Solution List** and select **Manage NuGet Packages for Solution**. A notice might appear at the top of the **Manage NuGet Packages** dialog that says "Some NuGet packages are missing from this solution. Click to restore from you online package sources." If so, click the **Restore** button and then the **Close** button. Build the library.
 
 Do the same thing with the other library solutions in the **Libraries** directory.
 
 You can then load any of the application projects. For each project, again right-click the solution name, select **Manage NuGet Packages for Solution** and go through the same process.
 
+### The Branches
+
+The **original-code-from-book** branch of this repository contains the code as it appeared in the *Creating Mobile Apps with Xamarin.Forms* book. The only change is that the projects have been updated to the latest Xamarin.Forms version.
+
+The projects in the **master** branch reflect changes in C# and Xamarin.Forms since the writing of the book. These changes are:
+
+- In code files, the deprecated `Device.OnPlatform` calls have been replaced with logic using the `Device.RuntimePlatform` property.
+- In XAML files, deprecated properties of the `OnPlatform` class have been replaced with `On` objects.
+- The use of the deprecated `Device.TargetPlatform` property have been replaced with `Device.RuntimePlatform`.
+- Calls to the deprecated `VisualElement.GetSizeRequest` method have been replaced with calls to `Measure`.
+- Overrides of the deprecated `VisualElement.OnSizeRequest` method have been replaced with overrides of `OnMeasure`.
+- Calls to and implementations of the deprecated `TypeConverter.ConvertFrom` method have been replaced with `ConvertFromInvariantString`.
+- The `NamedColor` class is now based on the `Color` structure rather than its own static fields.
+- The Android projects have been upgraded to use AppCompat and Material Design. This is consistent with recent Xamarin.Forms project templates.
+- The blank bitmaps in the **Assets** folder of the UWP projects have been replaced with Xamagon images. 
+- Event firing uses the null-conditional operator (`?.`) and the `Invoke` method.
+
 ### The Projects
 
-These solutions contain five application projects:
+These solutions contain three application projects:
 
 - **iOS**: iPhone and iPads
 - **Droid**: Android phones and tablets
 - **UWP**: The Universal Windows Platform, targeting Windows 10 tablets and desktop computers, and Windows 10 Mobile
+
+The **original-code-from-book** branch also contains the following two applicatin projects:
+
 - **Windows**: Windows 8.1 tablets and desktop computers using the Windows Runtime API
 - **WinPhone**: Windows Phone 8.1 devices using the Windows Phone API.
 
@@ -52,7 +73,42 @@ Currently, you can deploy the **UWP** project in several different ways based on
 
 - Select **Device** to deploy to a Windows 10 Mobile device. The **UWP** platform must be ARM.
 
-### Android AppCompat and Material Design
+### Version upgrades
 
-The **appcompat** branch of the sample code repository contains Android projects that have been modified to use AppCompat and Material Design. The modification is the same as that described in the article [Adding AppCompat and Material Design](https://developer.xamarin.com/guides/xamarin-forms/platform-features/android/appcompat/).
+As of August 12, 2016, all sample code has been upgraded to Xamarin.Forms version 2.3.1.114.
+
+As of November 23, 2016, all sample code has been upgraded to Xamarin.Forms version 2.3.3.168.
+
+As of May 2, 2017, all sample code has been upgraded to Xamarin.Forms version 2.3.4.231.
+
+As of November 3, 2017, all sample code has been upgraded to Xamarin.Forms version 2.4.0.38779.
+
+As of April 13, 2018, all sample code has been upgraded to Xamarin.Forms version 2.5.0.280555.
+
+### Removing Obsolete Project Types
+
+As of April 17, 2018, all **Windows** (Windows 8.1) and **WinPhone** (Windows Phone 8.1) projects have been removed from the samples. The **Windows** and **WinPhone** projects can still be found in the **original-code-from-book** branch.
+
+### .NET Standard
+
+As of May 3, 2018, all solutions in the **master** branch have been converted from using Portable Class Libraries (PCL) to .NET Standard 2.0 libraries. In addition, the application projects have been converted to a new format using **PackageReference**. This conversion makes the solutions much closer to what Visual Studio 2017 creates today as a new Xamarin.Forms solution. 
+
+The new features of the **.csproj** files simplify the references to NuGet libraries. There are no longer any **packages.config** files in any of the projects, and the references to NuGet libraries in the **.csproj** files are greatly reduced in bulk. The .NET Standard Library project no longer has an **AssemblyInfo.cs** file, and the UWP project no longer has any **project.json** or **project.lock.json** files.
+
+The solutions using PCL's have been archived in the **archive-pcl** branch. That branch will not be updated.
+
+It is recommended that all new Xamarin.Forms projects be created with Visual Studio 2017, and that Visual Studio 2017 also be used for existing Xamarin.Forms projects.
+
+As of May 4, 2018, all solutions in the **master** branch have been upgraded to Xamarin.Forms 2.5.1.527436.
+
+As of May 9, 2018, all solutions in the **master** branch have been upgraded to Xamarin.Forms 3.0.0.446417.
+
+As of July 17, 2018, all solutions in the **master** branch have been upgraded to Xamarin.Forms 3.1.0.637273.
+
+As of September 4, 2018, all iOS projects in the **master** branch have been restricted to 64-bit architectures.
+
+As of September 10, 2018, the deprecated **AndroidUseLastestPlatformSdk** element has been removed from all Android project files in the **master** branch.
+
+As of September 14, 2018, another **PropertyGroup** has been added to the .NET Standard library with a **DebugType** element. This is required for setting breakpoints when deploying to the UWP.
+
 

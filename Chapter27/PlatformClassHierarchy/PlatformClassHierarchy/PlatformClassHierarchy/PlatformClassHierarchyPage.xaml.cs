@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace PlatformClassHierarchy
 {
@@ -17,15 +13,25 @@ namespace PlatformClassHierarchy
             InitializeComponent();
 
             List<TypeInformation> classList = new List<TypeInformation>();
+            string[] assemblyNames = null;
 
-            string[] assemblyNames = Device.OnPlatform(
-                iOS: new string[] { "Xamarin.Forms.Platform.iOS" },
-                Android: new string[] { "Xamarin.Forms.Platform.Android" },
-                WinPhone: new string[] { "Xamarin.Forms.Platform.UAP",
-                                         "Xamarin.Forms.Platform.WinRT",
-                                         "Xamarin.Forms.Platform.WinRT.Tablet",
-                                         "Xamarin.Forms.Platform.WinRT.Phone" }
-                );
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    assemblyNames = new string[] { "Xamarin.Forms.Platform.iOS" };
+                    break;
+
+                case Device.Android:
+                    assemblyNames = new string[] { "Xamarin.Forms.Platform.Android" };
+                    break;
+
+                case Device.UWP:
+                    assemblyNames = new string[] { "Xamarin.Forms.Platform.UAP",
+                                                   "Xamarin.Forms.Platform.WinRT",
+                                                   "Xamarin.Forms.Platform.WinRT.Tablet",
+                                                   "Xamarin.Forms.Platform.WinRT.Phone" };
+                    break;
+            }
 
             foreach (string assemblyName in assemblyNames)
             {
@@ -132,6 +138,7 @@ namespace PlatformClassHierarchy
             if (typeInfo.IsGenericType)
             {
                 Type[] parameters = typeInfo.GenericTypeParameters;
+
                 name = name.Substring(0, name.Length - 2);
                 name += "<";
 

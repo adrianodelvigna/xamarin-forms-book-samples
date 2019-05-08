@@ -25,10 +25,6 @@ namespace BlackCatSap
             string resource = "BlackCatSap.Droid.Texts.TheBlackCat.txt";
 #elif WINDOWS_UWP
             string resource = "BlackCatSap.UWP.Texts.TheBlackCat.txt";
-#elif WINDOWS_APP
-            string resource = "BlackCatSap.Windows.Texts.TheBlackCat.txt";
-#elif WINDOWS_PHONE_APP
-            string resource = "BlackCatSap.WinPhone.Texts.TheBlackCat.txt";
 #endif
 
             using (Stream stream = assembly.GetManifestResourceStream (resource)) 
@@ -79,13 +75,13 @@ namespace BlackCatSap
             mainStack.Children.Add(scrollView);
 
             // Set page content to mainStack.
-            this.Content = mainStack;
+            Content = mainStack;
 
             // White background for ebooks!
-            this.BackgroundColor = Color.White;
+            BackgroundColor = Color.White;
     
             // Add some iOS padding for the page
-            this.Padding = new Thickness (0, Device.OnPlatform (20, 0, 0), 0, 0);
+            Padding = new Thickness (0, Device.RuntimePlatform == Device.iOS ? 20 : 0, 0, 0);
         }
     }
 }

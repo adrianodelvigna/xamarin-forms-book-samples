@@ -28,8 +28,7 @@ namespace BitmapStreams
                 {
                     Stream stream = request.EndGetResponse(arg).GetResponseStream();
 
-                    if (Device.OS == TargetPlatform.WinPhone ||
-                        Device.OS == TargetPlatform.Windows)
+                    if (Device.RuntimePlatform == Device.UWP)
                     {
                         MemoryStream memStream = new MemoryStream();
                         stream.CopyTo(memStream);

@@ -8,15 +8,6 @@ namespace MasterDetailBehaviors
         public MasterPage()
         {
             InitializeComponent();
-
-            if (Device.OS == TargetPlatform.WinPhone ||
-                Device.OS == TargetPlatform.Windows)
-            {
-                Icon = new FileImageSource
-                {
-                    File = "Images/ApplicationBar.Select.png"
-                };
-            }
         }
     }
 }
